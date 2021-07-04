@@ -38,6 +38,47 @@ defmodule UnderChat.Conversations do
   def get_conversation!(id), do: Repo.get!(Conversation, id)
 
   @doc """
+  Gets a single conversation_user by conversation_id and user_id.
+  Raises `nil` if the Conversation user does not exist.
+
+  ## Examples
+      iex> get_conversation_user_by_conversation_and_user_ids!(1 , 1)
+      %ConversationUser{}
+
+      iex> get_conversation_user!(45, 6)
+      nil
+  """
+  def get_conversation_user_by_conversation_and_user_ids!(
+        conversation_id,
+        user_id
+      ) do
+    from(
+      u in UnderChat.Conversations.ConversationUser,
+      where: u.conversation_id == ^conversation_id and u.user_id == ^user_id
+    )
+    |> Repo.one()
+  end
+
+  @doc """
+  Updates a conversation_user.
+
+  ## Examples
+      iex> update_conversation_user(conversation_user, %{field: new_value})
+      {:ok, %ConversationUser{}}
+
+      iex> update_conversation_user(conversation_user, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+  """
+  def update_conversation_user(
+        %UnderChat.Conversations.ConversationUser{} = conversation_user,
+        attrs
+      ) do
+    conversation_user
+    |> UnderChat.Conversations.ConversationUser.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
   Creates a conversation.
 
   ## Examples

@@ -56,7 +56,7 @@ defmodule UnderChatWeb.UsersChannel do
 
     user_Conversations =
       Enum.map(
-        Conversations.conversations(),
+        Conversations.list_conversations(),
         fn conversation -> parse_it(conversation) end
       )
 
