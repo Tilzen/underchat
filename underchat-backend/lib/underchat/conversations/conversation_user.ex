@@ -5,7 +5,8 @@ defmodule UnderChat.Conversations.ConversationUser do
   defimpl Jason.Encoder, for: WhatChat.Discussions.ConversationUser do
     def encode(value, options) do
       cond do
-        Ecto.assoc_loaded?(value.conversation) && Ecto.assoc_loaded?(value.user) ->
+        Ecto.assoc_loaded?(value.conversation) &&
+            Ecto.assoc_loaded?(value.user) ->
           Jason.Encode.map(
             Map.take(value, [
               :id,
@@ -18,16 +19,22 @@ defmodule UnderChat.Conversations.ConversationUser do
             options
           )
 
-        !Ecto.assoc_loaded?(value.conversation) && Ecto.assoc_loaded?(value.user) ->
-          Jason.Encode.map(Map.take(value, [:id, :read_at, :user, :user_id]), options)
+        !Ecto.assoc_loaded?(value.conversation) &&
+            Ecto.assoc_loaded?(value.user) ->
+          Jason.Encode.map(
+            Map.take(value, [:id, :read_at, :user, :user_id]),
+            options
+          )
 
-        Ecto.assoc_loaded?(value.conversation) && !Ecto.assoc_loaded?(value.user) ->
+        Ecto.assoc_loaded?(value.conversation) &&
+            !Ecto.assoc_loaded?(value.user) ->
           Jason.Encode.map(
             Map.take(value, [:id, :read_at, :conversation, :conversation_id]),
             options
           )
 
-        !Ecto.assoc_loaded?(value.conversation) && !Ecto.assoc_loaded?(value.user) ->
+        !Ecto.assoc_loaded?(value.conversation) &&
+            !Ecto.assoc_loaded?(value.user) ->
           Jason.Encode.map(Map.take(value, [:id, :read_at]), options)
       end
     end

@@ -12,10 +12,16 @@ defmodule UnderChatWeb.Router do
 
   scope "/users", UnderChatWeb do
     pipe_through :api
+
+    resources "/", UserController, except: [:new, :edit]
   end
 
   scope "/account", UnderChatWeb do
     pipe_through :api
+
+    get "/ping", SessionController, :ping
+    post "/sign_in", SessionController, :create
+    delete "/sign_out", SessionController, :delete
   end
 
   if Mix.env() in [:dev, :test] do

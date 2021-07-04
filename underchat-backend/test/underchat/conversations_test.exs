@@ -63,7 +63,9 @@ defmodule UnderChat.ConversationsTest do
 
     test "delete_conversation/1 deletes the conversation" do
       conversation = conversation_fixture()
-      assert {:ok, %Conversation{}} = Conversations.delete_conversation(conversation)
+
+      assert {:ok, %Conversation{}} =
+               Conversations.delete_conversation(conversation)
 
       assert_raise Ecto.NoResultsError, fn ->
         Conversations.get_conversation!(conversation.id)
@@ -72,7 +74,9 @@ defmodule UnderChat.ConversationsTest do
 
     test "change_conversation/1 returns a conversation changeset" do
       conversation = conversation_fixture()
-      assert %Ecto.Changeset{} = Conversations.change_conversation(conversation)
+
+      assert %Ecto.Changeset{} =
+               Conversations.change_conversation(conversation)
     end
   end
 
@@ -103,13 +107,16 @@ defmodule UnderChat.ConversationsTest do
     end
 
     test "create_message/1 with valid data creates a message" do
-      assert {:ok, %Message{} = message} = Conversations.create_message(@valid_attrs)
+      assert {:ok, %Message{} = message} =
+               Conversations.create_message(@valid_attrs)
+
       assert message.content == "some content"
       assert message.is_deleted == true
     end
 
     test "create_message/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Conversations.create_message(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} =
+               Conversations.create_message(@invalid_attrs)
     end
 
     test "update_message/2 with valid data updates the message" do
@@ -134,7 +141,10 @@ defmodule UnderChat.ConversationsTest do
     test "delete_message/1 deletes the message" do
       message = message_fixture()
       assert {:ok, %Message{}} = Conversations.delete_message(message)
-      assert_raise Ecto.NoResultsError, fn -> Conversations.get_message!(message.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Conversations.get_message!(message.id)
+      end
     end
 
     test "change_message/1 returns a message changeset" do
