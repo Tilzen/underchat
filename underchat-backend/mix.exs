@@ -35,6 +35,7 @@ defmodule UnderChat.MixProject do
     [
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_live_dashboard, "~> 0.4"},
